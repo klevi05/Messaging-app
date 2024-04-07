@@ -1,0 +1,25 @@
+.logIn{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-box{
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;    width:50vh;
+    padding: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    margin: 5%;
+}
+#submit-button{
+    border-color: black;
+    color: black;
+    margin-left: 26%;
+}
+
+.login-title{
+    margin-left: 20%;
+    margin-bottom: 10%;
+}

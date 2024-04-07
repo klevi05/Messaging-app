@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+JSON_FILE_STRUCTURE.txt
+TO-DO.txt
 
 # Editor directories and files
 .vscode/*
