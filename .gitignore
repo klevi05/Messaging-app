@@ -13,6 +13,7 @@ dist-ssr
 *.local
 JSON_FILE_STRUCTURE.txt
 TO-DO.txt
+.env
 
 # Editor directories and files
 .vscode/*
