@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -55,9 +54,7 @@ function Signin(){
                 .then((res) => {
                     if(res.status === 200){
                         if (res.status  !== 404){
-                            console.log(res)
-                            Cookies.set('user', 'hello')
-                            navigate('/home')
+                            navigate('/')
                         }else{
                             console.log('problem with the server')
                         }

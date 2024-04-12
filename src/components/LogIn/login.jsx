@@ -12,6 +12,7 @@ function Login(){
     const [error, setError] = useState('')
     const [IPAddress, setIPAddress] = useState('')
     const navigate= useNavigate()
+    //finding the ip of the device that is loging in
     useEffect(() => {
         fetch('https://api.ipify.org?format=json')
           .then(response => response.json())
@@ -20,16 +21,36 @@ function Login(){
             })
           .catch(error => console.log(error))
       }, []);
+    //event handler when the submit button is pressed
     function handleSubmit(e){
         e.preventDefault();
         if(username, password != ''){
-                fetch('http://localhost:5000/signin', {mode: 'cors'})
+                fetch('http://localhost:5000/login/', {mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
+                    "username": username,
+                    "password": password
+                })})
                 .then((res) => {
-                    res.json()
-                }).then((res)=> {
-                    console.log(IPAddress)
-                    Cookies.set('user','Hello')
-                    navigate('/home')
+                    if(res.status === 401){
+                        setError(<Alert severity="warning">The password is incorrect!</Alert>)
+                        return res == ''
+                    }else{
+                        return res.json()
+                    }
+                }).then((res)=>{
+                    if(res != ''){
+                        Cookies.set('user', res, {
+                            expires: 1,
+                            secure: true,
+                            sameSite: 'strict',
+                            path: '/home'
+                        })
+                        navigate('/home')
+                    }else{
+                        console.log('empty response')
+                    }
+                })
+                .catch((error) =>{
+                    console.log(error)
                 })
         }else{
             setError(<Alert severity="warning">Please fill all the fields!</Alert>)

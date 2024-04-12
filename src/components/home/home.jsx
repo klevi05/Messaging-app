@@ -4,22 +4,18 @@ import { useNavigate } from 'react-router-dom';
 function Home(){
     const navigate = useNavigate()
     useEffect(()=>{
-        if(Cookies.get('user') == undefined){
+        if(Cookies.get('user',{path:'/home'}) == undefined){
             navigate('/')
         }
     })
-    function refreshPage() {
-        Cookies.remove('user')
+    function close(){
+        Cookies.remove('user',{path:'/home'})
         navigate('/')
     }
-    window.addEventListener("beforeunload", () => 
-    {  
-        Cookies.remove('user')
-    })
     return(
         <>
             <h1>Home</h1>
-            <button onClick={refreshPage}>close</button>
+            <button onClick={close}>close</button>
         </>
     )
 }
