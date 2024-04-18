@@ -1,0 +1,16 @@
+.chating-page{
+    width: 100%;
+    display: flex;
+}
+.chat-names{
+    width: 20%;
+    background-color: aqua;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.chat-page{
+    width: 80%;
+}
+::-webkit-scrollbar{
+    display: none;
+}

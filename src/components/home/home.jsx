@@ -1,22 +1,40 @@
 import Cookies from 'js-cookie'
-import { useEffect } from 'react';
+import { useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-function Home(){
+import encryption from '../encryption/enryption';
+import decrypt from '../decryption/decryption';
+import './home.css';
+function Home() {
+    const [render , setRender] = useState(false)
     const navigate = useNavigate()
+    const [data, setData] = useState()
     useEffect(()=>{
-        if(Cookies.get('user',{path:'/home'}) == undefined){
-            navigate('/')
+        if(Cookies.get('user',{path:'/'}) == undefined){
+            console.log(encryption("hello"))
+            navigate('/login', { replace: true })
+        }else{
+            setData(JSON.parse(decrypt(Cookies.get('user',{path:'/'}))))
+            setRender(true)
         }
-    })
+    },[])
     function close(){
-        Cookies.remove('user',{path:'/home'})
-        navigate('/')
+        Cookies.remove('user',{path:'/'})
+        navigate('/login', { replace: true })
     }
-    return(
-        <>
-            <h1>Home</h1>
-            <button onClick={close}>close</button>
-        </>
-    )
+    if(render === true){
+        return(
+            <>
+                <div className='chating-page'>
+                    <div className='chat-names'>
+                        <h1>{data['name']}</h1>
+                        <button onClick={close}>close</button>
+                    </div>
+                    <div className='chat-page'>
+                        <h1>Chatt</h1>
+                    </div>
+                </div>
+            </>
+        )
+    }
 }
 export default Home

@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
-import bcrypt from 'bcryptjs'
+import validator from 'validator'
+import hashing from '../hashing/hashing';
 import './signin.css';
 function Signin(){
     //setting state variables
@@ -33,37 +34,45 @@ function Signin(){
             if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)){
                 setError(<Alert severity="warning">Please enter a valid email!</Alert>)
             }else{
-                //hashing sensitive data
-                const id = bcrypt.hashSync(username, parseInt(import.meta.env.VITE_SALT))
-                const passwordHash = bcrypt.hashSync(password, parseInt(import.meta.env.VITE_SALT))
-                //fetch the data to the backend to save them 
-                fetch(import.meta.env.VITE_SIGNIN, {mode: 'cors', method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify({
-                    "_id": id,
-                    "name": name,
-                    "lastname": lastname,
-                    "email": email,
-                    "username": username,
-                    "password": passwordHash,
-                    "ip": [
-                        {
-                            "ip_adress": IPAddress
+                if(validator.isStrongPassword(password, { 
+                    minLength: 8, minLowercase: 1, 
+                    minUppercase: 1, minNumbers: 1, minSymbols: 1 
+                })){ //hashing sensitive data
+                    const id = hashing(username)
+                    const passwordHash = hashing(password)
+                    //fetch the data to the backend to save them 
+                    fetch(import.meta.env.VITE_SIGNIN, {mode: 'cors', method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify({
+                        "_id": id,
+                        "name": name,
+                        "lastname": lastname,
+                        "email": email,
+                        "username": username,
+                        "password": passwordHash,
+                        "ip": [
+                            {
+                                "ip_adress": IPAddress
+                            }
+                        ],
+                        "messages": []
+                    })})
+                    .then((res) => {
+                        if(res.status === 200){
+                            if (res.status  !== 404){
+                                navigate('/login')
+                            }else{
+                                console.log('problem with the server')
+                            }
+                        }else if(res.status === 401){
+                            setError(<Alert severity="warning">Username already exists!</Alert>)
+                        }else if(res.status === 402){
+                            setError(<Alert severity="warning">Email already used!</Alert>)
                         }
-                    ],
-                    "messages": []
-                })})
-                .then((res) => {
-                    if(res.status === 200){
-                        if (res.status  !== 404){
-                            navigate('/')
-                        }else{
-                            console.log('problem with the server')
-                        }
-                    }else if(res.status === 401){
-                        setError(<Alert severity="warning">Username already exists!</Alert>)
-                    }
-                }).catch(error=>{
-                    console.log(error)
-                })
+                    }).catch(error=>{
+                        console.log(error)
+                    })
+            }else{
+                setError(<Alert severity="warning">The password is not strong enough!</Alert>)
+            }
             }
         }else{
             setError(<Alert severity="warning">Please fill all your fields!</Alert>)

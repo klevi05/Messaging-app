@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import encryption from '../encryption/enryption';
 import './login.css'
 //login function
 function Login(){
@@ -14,12 +15,16 @@ function Login(){
     const navigate= useNavigate()
     //finding the ip of the device that is loging in
     useEffect(() => {
-        fetch('https://api.ipify.org?format=json')
+        if(Cookies.get('user',{path:'/'}) == undefined){
+          fetch('https://api.ipify.org?format=json')
           .then(response => response.json())
           .then(data =>{
-             setIPAddress(data.ip)
+             setIPAddress(data.ip);
             })
           .catch(error => console.log(error))
+        }else{
+            navigate('/', { replace: true });
+        }
       }, []);
     //event handler when the submit button is pressed
     function handleSubmit(e){
@@ -31,29 +36,45 @@ function Login(){
                 })})
                 .then((res) => {
                     if(res.status === 401){
-                        setError(<Alert severity="warning">The password is incorrect!</Alert>)
-                        return res == ''
+                        setError(<Alert severity="warning">The password is incorrect!</Alert>);
+                        return res == '';
                     }else{
-                        return res.json()
+                        return res.json();
                     }
                 }).then((res)=>{
                     if(res != ''){
-                        Cookies.set('user', res, {
-                            expires: 1,
-                            secure: true,
-                            sameSite: 'strict',
-                            path: '/home'
-                        })
-                        navigate('/home')
+                        let exist = false;
+                        for (let i of res.ip)  {
+                            if((i['ip_adress']===IPAddress)==true){
+                                exist = true;
+                            }
+                            console.log(exist)
+                        }
+                        if( exist === false){
+                            Cookies.set('verification', encryption(JSON.stringify(res)), {
+                                expires: 1,
+                                secure: true,
+                                sameSite: 'strict',
+                                path: '/'
+                            });
+                            console.log('verification')
+                            navigate('/verification', {replace:true});
+                        }else{
+                            Cookies.set('user', encryption(JSON.stringify(res)), {
+                                expires: 1,
+                                secure: true,
+                                sameSite: 'strict',
+                                path: '/'
+                            });
+                            console.log('home')
+                            navigate('/', { replace: true });
+                        }
                     }else{
-                        console.log('empty response')
+                        console.log('empty response');
                     }
                 })
-                .catch((error) =>{
-                    console.log(error)
-                })
         }else{
-            setError(<Alert severity="warning">Please fill all the fields!</Alert>)
+            setError(<Alert severity="warning">Please fill all the fields!</Alert>);
         }
     }
     return(
