@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import encryption from '../encryption/enryption';
 import validator from 'validator'
 import hashing from '../hashing/hashing';
 import './signin.css';
@@ -50,7 +51,7 @@ function Signin(){
                         "password": passwordHash,
                         "ip": [
                             {
-                                "ip_adress": IPAddress
+                                "ip_adress": encryption(IPAddress)
                             }
                         ],
                         "messages": []

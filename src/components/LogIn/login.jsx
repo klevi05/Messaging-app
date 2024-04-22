@@ -5,7 +5,10 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import encryption from '../encryption/enryption';
+import decrypt from '../decryption/decryption';
+import findIp from '../findIp/findIp'
 import './login.css'
+import { enc } from 'crypto-js';
 //login function
 function Login(){
     const [username,setUsername] = useState('');
@@ -16,12 +19,7 @@ function Login(){
     //finding the ip of the device that is loging in
     useEffect(() => {
         if(Cookies.get('user',{path:'/'}) == undefined){
-          fetch('https://api.ipify.org?format=json')
-          .then(response => response.json())
-          .then(data =>{
-             setIPAddress(data.ip);
-            })
-          .catch(error => console.log(error))
+            findIp(setIPAddress);
         }else{
             navigate('/', { replace: true });
         }
@@ -45,19 +43,18 @@ function Login(){
                     if(res != ''){
                         let exist = false;
                         for (let i of res.ip)  {
-                            if((i['ip_adress']===IPAddress)==true){
+                            if((decrypt(i['ip_adress'])===IPAddress)==true){
+                                console.log(decrypt(i['ip_adress']))
                                 exist = true;
                             }
-                            console.log(exist)
                         }
                         if( exist === false){
-                            Cookies.set('verification', encryption(JSON.stringify(res)), {
+                            Cookies.set('verification', encryption(JSON.stringify(res, IPAddress)), {
                                 expires: 1,
                                 secure: true,
                                 sameSite: 'strict',
                                 path: '/'
                             });
-                            console.log('verification')
                             navigate('/verification', {replace:true});
                         }else{
                             Cookies.set('user', encryption(JSON.stringify(res)), {
@@ -66,7 +63,6 @@ function Login(){
                                 sameSite: 'strict',
                                 path: '/'
                             });
-                            console.log('home')
                             navigate('/', { replace: true });
                         }
                     }else{

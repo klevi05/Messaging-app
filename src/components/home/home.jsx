@@ -5,8 +5,8 @@ import encryption from '../encryption/enryption';
 import decrypt from '../decryption/decryption';
 import './home.css';
 function Home() {
-    const [render , setRender] = useState(false)
     const navigate = useNavigate()
+    const [render , setRender] = useState(false)
     const [data, setData] = useState()
     useEffect(()=>{
         if(Cookies.get('user',{path:'/'}) == undefined){
