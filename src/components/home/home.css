@@ -1,15 +1,46 @@
+.upper{
+    height: 95vh;
+}
+.footer{
+    background-color: #3F3F3F;
+    height: 5vh;
+}
 .chating-page{
     width: 100%;
     display: flex;
 }
 .chat-names{
     width: 20%;
-    background-color: aqua;
-    height: 100vh;
+    background-color: #3F3F3F;
+    height: 95vh;
     overflow-y: scroll;
+    border-bottom:1px solid white ;
+}
+.searchBar{
+    height: 6vh;   
+    border-bottom:1px solid white ; 
 }
 .chat-page{
     width: 80%;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../assets/background.webp');
+}
+.firendName{
+    padding-left: 3vh;
+    padding-top: 1vh;
+    font-weight: bold;
+    height: 6vh;
+    width: 100%;
+    background-color: white;
+}
+.messages{
+    height: 83vh;
+}
+.message-area{
+    height: 6vh;
+    background-color: white;
 }
 ::-webkit-scrollbar{
     display: none;

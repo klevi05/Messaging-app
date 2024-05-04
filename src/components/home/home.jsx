@@ -3,6 +3,7 @@ import { useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import encryption from '../encryption/enryption';
 import decrypt from '../decryption/decryption';
+import Names from './names';
 import './home.css';
 function Home() {
     const navigate = useNavigate()
@@ -17,22 +18,35 @@ function Home() {
             setRender(true)
         }
     },[])
-    function close(){
-        Cookies.remove('user',{path:'/'})
-        navigate('/login', { replace: true })
-    }
     if(render === true){
         return(
             <>
+            <div className="upper">
                 <div className='chating-page'>
                     <div className='chat-names'>
-                        <h1>{data['name']}</h1>
-                        <button onClick={close}>close</button>
+                        <div className='searchBar'>
+                            SearchBar
+                        </div>
+                        <div className='list-name'>
+                            <Names name={data['name']}/>
+                        </div>
                     </div>
                     <div className='chat-page'>
-                        <h1>Chatt</h1>
+                        <div className="firendName">
+                            {data['name']}
+                        </div>
+                        <div className="messages">
+                            messages
+                        </div>
+                        <div className='message-area'>
+                            messages
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div className="footer">
+                hello
+            </div>
             </>
         )
     }
