@@ -36,6 +36,8 @@ function Login(){
                     if(res.status === 401){
                         setError(<Alert severity="warning">The password is incorrect!</Alert>);
                         return res == '';
+                    }else if(res.status === 402){
+                        setError(<Alert severity="warning">This acount does not exist!</Alert>)
                     }else{
                         return res.json();
                     }
