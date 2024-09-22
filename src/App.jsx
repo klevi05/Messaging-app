@@ -6,6 +6,7 @@ import Home from './components/home/home';
 import Verification from './components/verification/verification';
 import NotFound from './components/notFound/notFound';
 function App(){
+  //defining the routes I will be needing for differente pages
     return(
     <BrowserRouter>
       <Routes>

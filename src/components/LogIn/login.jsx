@@ -8,7 +8,6 @@ import encryption from '../encryption/enryption';
 import decrypt from '../decryption/decryption';
 import findIp from '../findIp/findIp'
 import './login.css'
-import { enc } from 'crypto-js';
 //login function
 function Login(){
     const [username,setUsername] = useState('');

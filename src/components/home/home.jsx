@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie'
 import { useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import encryption from '../encryption/enryption';
 import decrypt from '../decryption/decryption';
 import Names from './items/names';
 import Footer from './items/Footer';
@@ -11,21 +10,34 @@ import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
 import './home.css';
 function Home() {
+    //defining the navigation which will be used to navigate through pages
     const navigate = useNavigate()
+    //dummy data 
     const users = [{"username": "klevi", "lastMessage": "Klevi"}, {'username':'erlisi', 'lastMessage': 'erlis'}]
+    //this will be used to render the page or not
     const [render , setRender] = useState(false)
+    //state for the search bar 
+    const [search, setSearch] = useState('')
+    //state for the messages text bar
+    const [newMessage, setNewMessage] = useState('')
+    //this will be used to store the data from the cookie 
     const [data, setData] = useState()
     useEffect(()=>{
+        //validate if there is a cookie to enter this page
         if(Cookies.get('user',{path:'/'}) == undefined){
-            console.log(encryption("hello"))
             navigate('/login', { replace: true })
         }else{
             setData(JSON.parse(decrypt(Cookies.get('user',{path:'/'}))))
             setRender(true)
         }
     },[])
-    function handleSearch(e){
-        console.log(e.target.value)
+    //created function to send messages
+    function sendMessage(){
+        console.log(newMessage)
+    }
+    //created function to search for users
+    function searching(){
+        console.log(search)
     }
     if(render === true){
         return(
@@ -37,10 +49,10 @@ function Home() {
                             <InputBase
                                 sx={{ ml: 1, flex: 1, color:'white'}}
                                 placeholder="Search by username"
-                                onChange={(e)=> handleSearch(e)}
+                                onChange={(e)=> setSearch(e.target.value)}
                                 inputProps={{ 'aria-label': 'Search' }}
                             />
-                            <IconButton type="button" sx={{ p: '10px', color:'white' }} aria-label="search">
+                            <IconButton onClick={searching} type="button" sx={{ p: '10px', color:'white' }} aria-label="search">
                                 <SearchIcon />
                             </IconButton>
                         </div>
@@ -61,8 +73,9 @@ function Home() {
                             <InputBase
                                 sx={{pl:2,color:'black', width: '95%', height:'100%'}}
                                 placeholder="Type your message..."
+                                onChange={(e)=> setNewMessage(e.target.value)}
                             />
-                            <IconButton type="button" sx={{ p: '10px', color:'#3F3F3F' }} aria-label="search">
+                            <IconButton onClick={sendMessage}type="button" sx={{ p: '10px', color:'#3F3F3F' }} aria-label="search">
                                 <SendIcon />
                             </IconButton>
                         </div>

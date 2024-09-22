@@ -3,6 +3,7 @@ import { List } from './List';
 import { Messages } from './Messages';
 import { Settings } from './Settings';
 function Footer(){
+    //footer function which will be used as the navigation bar to different pages inside the app
     return(
         <div className="footer">
                 <div className='footnameBox'>
