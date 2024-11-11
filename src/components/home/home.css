@@ -4,14 +4,6 @@
 .upper{
     height: 95vh;
 }
-.footer{
-    background-color: #3F3F3F;
-    height: 5vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .chating-page{
     width: 100%;
     display: flex;
@@ -49,6 +41,8 @@
 .searchBar{
     height: 6vh;   
     border-bottom:1px solid white ; 
+    display: grid;
+    grid-template-columns: 85% 15%;
 }
 .picture{
     display: flex;
@@ -82,13 +76,11 @@
     height: 6vh;
     background-color: white;
 }
-.footnameBox{
+.loadingScreen{
+    height: 100vh;
     display: flex;
-    gap: 3rem;
-}
-.footerButton{
-    background-color: #3F3F3F;
-    border: none;
+    align-items: center;
+    justify-content: center;
 }
 ::-webkit-scrollbar{
     display: none;      

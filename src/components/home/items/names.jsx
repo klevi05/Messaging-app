@@ -1,11 +1,11 @@
 import Background from '../../../assets/background.webp';
 
-function Names({name, lastMessage}){
+function Names({name, lastMessage,image}){
     return(
         <>
         <div className='friendsBox'>
             <div className='picture'>
-                <img src={Background} alt="" />
+                <img src={image} alt="" />
             </div>
             <div className='text'>
                 <p className='username'>{name}</p>

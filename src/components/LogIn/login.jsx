@@ -27,8 +27,10 @@ function Login(){
     function handleSubmit(e){
         e.preventDefault();
         if(username, password != ''){
+                const loginUsername = username.split("/")
                 fetch('http://localhost:5000/login/', {mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
-                    "username": username,
+                    "company" : loginUsername[0],
+                    "username": loginUsername[1],
                     "password": password
                 })})
                 .then((res) => {
@@ -45,7 +47,6 @@ function Login(){
                         let exist = false;
                         for (let i of res.ip)  {
                             if((decrypt(i['ip_adress'])===IPAddress)==true){
-                                console.log(decrypt(i['ip_adress']))
                                 exist = true;
                             }
                         }
@@ -83,7 +84,7 @@ function Login(){
                         {error} 
                         <TextField 
                         id="username" 
-                        label="Username" 
+                        label="company/Username" 
                         variant="standard"
                         required
                         onChange={(e)=> setUsername(e.target.value)}

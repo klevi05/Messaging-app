@@ -4,30 +4,50 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import encryption from '../encryption/enryption';
-import validator, { isByteLength } from 'validator'
+import validator from 'validator'
 import hashing from '../hashing/hashing';
-import './signin.css';
-function Signin(){
+import { useParams } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+function AddUser(props){
+    //getting the parameter from the link
+    let {uuid} = useParams()
+    let {company} = useParams()
+    let {role} = useParams()
     //setting state variables
     const [name, setName] = useState('')    
     const [lastname, setLastname] = useState('')
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const [company, setCompany] = useState('');
     const [email, setEmail] = useState('')
     const [error, setError] = useState('')
     const [IPAddress, setIPAddress] = useState('')
     const [image, setImage] = useState("")
+    const [render , setRender] = useState(false)
     //initializing useNavigate
     const navigate= useNavigate()
     //fetch to find the api of the device
     useEffect(() => {
-        fetch('https://api.ipify.org?format=json')
+        const fetchip = async () =>{
+            fetch('https://api.ipify.org?format=json')
           .then(response => response.json())
           .then(data =>{
             setIPAddress(String(data.ip))
             })
-          .catch(error => console.log(error))
+          .catch(error => console.log(error));
+        }
+        const fetchcheck = async () => {
+            await fetch('http://localhost:5000/checkAdding',{mode: 'cors', method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify({
+                "uuid": uuid
+            })}).then((resp)=>{
+                if(resp.status === 404){
+                    navigate('/pagenotfound')
+                }else if(resp.status === 200){
+                    setRender(true)
+                }
+            })
+        }
+        fetchcheck();
+        fetchip();
       }, []);
       //function to converte the image in a base64 data
       function converteToBase64(e){
@@ -60,7 +80,7 @@ function Signin(){
                         "email": email,
                         "username": username,
                         "company": company,
-                        "position": "admin",
+                        "position": role,
                         "password": passwordHash,
                         "image": image,
                         "ip": [
@@ -73,6 +93,9 @@ function Signin(){
                     .then((res) => {
                         if(res.status === 200){
                             if (res.status  !== 404){
+                                fetch('http://localhost:5000/removeAdding',{mode: 'cors', method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify({
+                                    "uuid": uuid
+                                })})
                                 navigate('/login')
                             }else{
                                 console.log('problem with the server')
@@ -97,6 +120,9 @@ function Signin(){
     }
     return(
         <>
+        {render!=true?<div className='loadingScreen'>
+            <CircularProgress size="10rem" />
+        </div>:
             <div className='logIn'>
                 <div className='form-box' >
                     <div className='form'>
@@ -136,8 +162,9 @@ function Signin(){
                         id="company-signup" 
                         label="Company" 
                         variant="standard"
+                        value={company}
                         required
-                        onChange={(e)=> setCompany(e.target.value)}
+                        disabled
                         sx={{
                             marginBottom: 2,
                         }}
@@ -181,7 +208,8 @@ function Signin(){
                     </div>
                 </div>
             </div>
+        }
         </>
     )
 }
-export default Signin
+export default AddUser

@@ -3,11 +3,12 @@ import { useEffect,useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import decrypt from '../decryption/decryption';
 import Names from './items/names';
-import Footer from './items/Footer';
+import Footer from '../footer/Footer';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import SendIcon from '@mui/icons-material/Send';
+import CircularProgress from '@mui/material/CircularProgress';
 import './home.css';
 function Home() {
     //defining the navigation which will be used to navigate through pages
@@ -20,6 +21,7 @@ function Home() {
     const [search, setSearch] = useState('')
     //state for the messages text bar
     const [newMessage, setNewMessage] = useState('')
+    const [image, setImage] = useState()
     //this will be used to store the data from the cookie 
     const [data, setData] = useState()
     useEffect(()=>{
@@ -28,7 +30,14 @@ function Home() {
             navigate('/login', { replace: true })
         }else{
             setData(JSON.parse(decrypt(Cookies.get('user',{path:'/'}))))
-            setRender(true)
+            fetch('http://localhost:5000/get-image',{mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
+                "id": JSON.parse(decrypt(Cookies.get('user',{path:'/'})))['image']
+            })}).then((res)=>{
+                return res.json()
+            }).then((res)=>{
+                setImage(res['image'])
+                setRender(true)
+            })
         }
     },[])
     //created function to send messages
@@ -39,8 +48,11 @@ function Home() {
     function searching(){
         console.log(search)
     }
-    if(render === true){
-        return(
+    return(
+        <>
+        {render!=true?<div className='loadingScreen'>
+                <CircularProgress size="10rem" />
+            </div>:
             <div className='home-page'>
             <div className="upper">
                 <div className='chating-page'>
@@ -58,7 +70,7 @@ function Home() {
                         </div>
                         <div className='list-name'>
                             {users.map((user)=>(
-                                <Names name={user['username']} lastMessage={user['lastMessage']}/>
+                                <Names name={user['username']} lastMessage={user['lastMessage']} image={image}/>
                             ))}
                         </div>
                     </div>
@@ -82,9 +94,10 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer permition={data['position']}/>
             </div>
-        )
-    }
+            }
+        </>
+    )
 }
 export default Home
