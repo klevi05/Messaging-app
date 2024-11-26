@@ -93,6 +93,32 @@
     height: 100%;
     width: 100%;
 }
+.attchments{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imagexBoxMessagesReciver{
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+}
+.imageBoxMessages{
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+}
+.imageMessage{
+    color: white;
+    height: 50vh;
+    object-fit:cover;
+}
 .messages{
     height: 83vh;
     display: flexbox;
@@ -102,6 +128,23 @@
 .message-area{
     height: 6vh;
     background-color: white;
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+}
+.buttonAttachment{
+    border:  none;
+    background-color: white;
+}
+.backgroundSendImage{
+    height: 20%;
+    width: 90%;
+    margin-left: 5%;
+    background-color: rgba(211, 211, 211, 0.516);
+    display: flex;
+}
+.imageSend{
+    height: 100%;
+    width: auto;
 }
 .online{
     border: 2px solid green;
@@ -123,7 +166,7 @@
     color: white
 }
 .messageContentReciver{
-    width: 100%;
+    width: 50%;
 }
 .messagesTextReciver{
     color: white;
@@ -132,23 +175,41 @@
     margin: 1rem;
     padding: 1rem;
     border-radius: 20px;
-    width: 50%;
+    width: 100%;
+    line-break: anywhere;
 }
 .messageContentSender{
     margin-left: 50%;
     width: 50%;
 }
+.imageMessageimg{
+    height: fit-content;
+    width: fit-content;
+}
 .messagesTextSender{
     color: white;
     background-color: green;
     height: auto;
+    width: 96%;
     margin: 1rem;
     padding: 1rem;
     border-radius: 20px;
+    line-break: anywhere;
 }
 .timeSender{
     font-size: 12px;
-    margin-left: 95%;
+    margin-left: 92%;
+    color: white;
+}
+.downloadButton{
+    background-color: green;
+    border: none;
+    color: white;
+}
+.downloadButtonReciver{
+    background-color: blue;
+    border: none;
+    color: white;
 }
 ::-webkit-scrollbar{
     display: none;      
