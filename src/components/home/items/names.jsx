@@ -1,17 +1,29 @@
-import Background from '../../../assets/background.webp';
-
-function Names({name, lastMessage,image}){
+import decrypt from "../../decryption/decryption";
+function Names({chatList,image, setOpenConversation}){
+    function getImages(item, imag){
+        if(imag != undefined){
+            const imageRetrived = imag?.find((image)=>{
+                if(image['_id'] === item['image']) return image["image"];
+             })
+             return imageRetrived['image']
+        }
+    }
     return(
         <>
-        <div className='friendsBox'>
-            <div className='picture'>
-                <img src={image} alt="" />
-            </div>
-            <div className='text'>
-                <p className='username'>{name}</p>
-                <p className='lastMessage'>{lastMessage}</p>
-            </div>
-        </div>
+        {chatList.map(list => (
+            <>
+            {list['lastMessage']!=""?
+            <div onClick={()=>{setOpenConversation(list['chatData'])}} className='friendsBox'>
+                <div className='picture'>
+                    <img src={getImages(list, image)}/>
+                </div>
+                <div className='text'>
+                    <p className='username'>{list['name']}</p>
+                    <p className='lastMessage'>{decrypt(list['lastMessage'])}</p>
+                </div>
+            </div>:""}
+            </>
+        ))}
         </>
     )
 }

@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import encryption from '../encryption/enryption';
-import validator, { isByteLength } from 'validator'
+import validator from 'validator'
 import hashing from '../hashing/hashing';
 import './signin.css';
 function Signin(){
@@ -34,7 +34,6 @@ function Signin(){
         var reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
         reader.onload =()=>{
-            console.log(reader.result)
             setImage(reader.result);
         }
       }

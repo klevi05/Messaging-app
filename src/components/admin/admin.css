@@ -22,9 +22,30 @@
     justify-content: center;
 }
 .boxListing{
-    height: 150px;
+    height: 200px;
     width: 100%;
     border: 1px solid green;
     border-radius: 10px;
     margin-top: 2vh;
+    display: grid;
+    grid-template-areas: "photo info remove";
+    grid-template-columns: 25% 55% 20%;
+}
+.imageBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageBox img{
+    border-radius: 60%;
+}
+.userInfo{
+    display: flex;
+    align-items: center;
+    margin-left: 2rem;
+}
+.removeUser{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

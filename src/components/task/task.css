@@ -1,0 +1,78 @@
+.task-page{
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+}
+.task-view{
+    height: 95vh;
+    width: 70%;
+    overflow-y: scroll;
+}
+.create-task{
+    justify-self: right;
+    margin-right: 3pc;
+    margin-top: 2pc;
+}
+.task-list{
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    column-gap: 3%;
+    row-gap: 10%;
+}
+.taskPageTitle{
+    justify-self: center;
+}
+.task-box{
+    min-height: 20pc;
+    max-height: 23pc;
+    width: 100%;
+    margin-left: 10%;
+    display: grid;
+    grid-template-rows: 14% 56% 10% 20%;
+    border-radius: 10%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;    
+}
+.available{
+    border: 2px solid red;
+}
+.completed{
+    border: 2px solid green;
+}
+.titleTaskBox{
+    display: flex;
+    justify-content: center;
+    margin-left: 0.5pc;
+    overflow-x: scroll;
+    line-break:normal;
+}
+.descriptionTaskBox{
+    overflow-y: scroll;
+    padding-left: 0.5pc;
+    padding-right: 0.5pc;
+}
+.creatorTaskBox{
+    font-size: auto;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    margin: 0.5pc;
+}
+.creatorName{
+    justify-self: left;
+}
+.creatorNameAvailable{
+    justify-self: left;
+}
+.timeTaskBox{
+    justify-self: right ;
+}
+.buttonsTaskBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.formpopup{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}

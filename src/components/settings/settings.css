@@ -1,3 +1,42 @@
 .setting-page{
     height: 95vh;
+    display: flex;
+    justify-content: center;
+    overflow-y: scroll;
+}
+.setting-page-box{
+    height: 100%;
+    width: 40%;
+    display: grid;
+    grid-template-columns: 40% 5% 60% ;
+}
+.profilePicture{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5%;
+}
+.profilePictureDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profileData{
+    margin-top: 5%;
+    border-bottom: 1px solid #3F3F3F;
+}
+.title{
+    justify-self: center;
+}
+.userData{
+    border-left: 1px solid #3F3F3F;
+}
+.changeEmailLabel{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.changeData{
+    border-bottom: 1px solid #3F3F3F;
 }

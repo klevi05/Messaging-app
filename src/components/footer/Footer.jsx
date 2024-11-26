@@ -16,7 +16,7 @@ function Footer(permiton){
                         <Link to='/' className='footerButton'>
                             <Messages/>
                         </Link>
-                        <Link to='/' className='footerButton'>
+                        <Link to='/task' className='footerButton'>
                             <List/>
                         </Link>
                         <Link to='/settings' className='footerButton'>
@@ -32,7 +32,7 @@ function Footer(permiton){
                         <Link to='/' className='footerButton'>
                             <Messages/>
                         </Link>
-                        <Link to='/' className='footerButton'>
+                        <Link to='/task' className='footerButton'>
                             <List/>
                         </Link>
                         <Link to='/settings' className='footerButton'>
