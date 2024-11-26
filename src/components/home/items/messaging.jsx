@@ -61,6 +61,10 @@ function Messaging({data, openConversation, image}){
                     "text": encryption(newMessage),
                     "type": 'text'
                 })}).then((res)=>{
+                    setImageMessage('')
+                    setDocument('')
+                    setNewMessage("")
+                    setAlert('')
                     return res.json()
                 })
             }else if(imageMessage != ""){
@@ -70,6 +74,10 @@ function Messaging({data, openConversation, image}){
                 formData.append('file', imageMessage);
                 formData.append('type', 'image')
                 fetch('http://localhost:5000/addingImageMessages',{mode: 'cors', method:"POST", body:formData }).then((res)=>{
+                    setImageMessage('')
+                    setDocument('')
+                    setNewMessage("")
+                    setAlert('')
                     return res.json()
                 })
             }else if(document !=""){
@@ -79,15 +87,15 @@ function Messaging({data, openConversation, image}){
                 formDataDocument.append('file', document);
                 formDataDocument.append('type', 'document')
                 fetch('http://localhost:5000/addingDocumentMessagess',{mode: 'cors', method:"POST", body:formDataDocument}).then((res)=>{
+                    setImageMessage('')
+                    setDocument('')
+                    setNewMessage("")
+                    setAlert('')
                     return res.json()
                 })
             }else{
                 setAlert(<Alert severity="error">You cannot send an empty message!</Alert>)
             }
-            setImageMessage('')
-            setDocument('')
-            setNewMessage("")
-            setAlert('')
     }
     function getImages(item, imag){
         if(imag != undefined){
@@ -150,12 +158,14 @@ function Messaging({data, openConversation, image}){
                                     </Dialog>
                                 </div>
                                 <div>
-                                    {(newMessage!='')?
+                                    {(document!='')?
                                     <InputBase
                                     sx={{pl:2,color:'black', width: '95%', height:'100%'}}
-                                    placeholder="Type your message..."
-                                    value={newMessage}
-                                    onChange={(e)=> setNewMessage(e.target.value)}/>:
+                                    placeholder="Send a document or type something..."
+                                    value={document['name']}
+                                    onChange={(e)=> {setNewMessage(e.target.value), setDocument('')}}
+                                    />
+                                    :
                                     <>
                                     {imageMessage!=''?
                                         <>
@@ -168,17 +178,16 @@ function Messaging({data, openConversation, image}){
                                         </>:
                                         <InputBase
                                         sx={{pl:2,color:'black', width: '95%', height:'100%'}}
-                                        placeholder="Send a document or type something..."
-                                        value={document['name']}
-                                        onChange={(e)=> {setNewMessage(e.target.value), setDocument('')}}
-                                        />
+                                        placeholder="Type your message..."
+                                        value={newMessage}
+                                        onChange={(e)=> setNewMessage(e.target.value)}/> 
                                     }
                                     </>
                                     }
                                     
                                 </div>
                                 <div>
-                                <IconButton onClick={sendMessage}type="button" sx={{ p: '10px', color:'#3F3F3F' }} aria-label="search">
+                                <IconButton onClick={()=>{sendMessage(),setImageMessage(''),setDocument(''),setNewMessage(""),setAlert('')}}type="button" sx={{ p: '10px', color:'#3F3F3F' }} aria-label="search">
                                     <SendIcon />
                                 </IconButton>
                                 </div>

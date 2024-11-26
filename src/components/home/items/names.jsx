@@ -22,6 +22,7 @@ function Names({chatList,image, setOpenConversation}){
                 </div>
                 <div className='text'>
                     <p className='username'>{list['name']}</p>
+                    
                     {list['lastMessage']['type']==='text'?
                         <p className='lastMessage'>{decrypt(list['lastMessage']['text'])}</p>:
                         <>
@@ -29,12 +30,7 @@ function Names({chatList,image, setOpenConversation}){
                             <>
                             <p className="lastMessage">{<CameraAltIcon/>} Image</p>
                             </>:
-                            <>
-                            {list['lastMessage']['type']==='document'?
-                            <p className="lastMessage">{<DescriptionIcon/>} Document</p>:
-                             ""
-                            }
-                            </>
+                            <p className="lastMessage">{<DescriptionIcon/>} Document</p>
                         }
                         </>
                     }

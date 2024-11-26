@@ -116,15 +116,17 @@ function MessagesBox({messages_id, sender, reciver, setOnline}){
                                         <DescriptionIcon/>
                                         {getDocuments(item['text'], document)}
                                         </button>
+                                        <p className="timeSender">{item['createdAt']}</p>
                                 </div>
                             </div>)
                         }else{
                             return(<div ref={lastMessage} className='messageContentReciver'key={item['_id']}>
-                                <div>
-                                <button className="downloadButtonReciver">
+                                <div className="imagexBoxMessagesReciver">
+                                        <button className="downloadButtonReciver">
                                         <DescriptionIcon/>
                                         {getDocuments(item['text'], document)}
                                         </button>
+
                                 </div>
                             </div>)
                         }

@@ -35,6 +35,7 @@ function Home() {
             })}).then((res)=>{
                 return res.json()
             }).then((res)=>{
+                console.log(res)
                 setChatList(res)
             })
         }
