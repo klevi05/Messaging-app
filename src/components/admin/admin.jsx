@@ -150,7 +150,6 @@ function Admin(){
                                         label="Role"
                                         onChange={(e)=>{setRole(e.target.value)}}
                                         >
-                                        <MenuItem value={"Admin"}>Admin</MenuItem>
                                         <MenuItem value={"Manager"}>Menager</MenuItem>
                                         <MenuItem value={"Worker"}>Worker</MenuItem>
                                         </Select>

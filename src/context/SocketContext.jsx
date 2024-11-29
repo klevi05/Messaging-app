@@ -7,7 +7,7 @@ const SocketContext = createContext();
 export const useSocketContext = () =>{
     return useContext(SocketContext)
 }
-export const SocketContextProvide=({children})=>{
+export const SocketContextProvide=({children})=>{//conecting with the socket.io Server
     const [socket, setSocket] = useState(null)
     const [onlineUsers, setOnlineUsers] = useState([])
     useEffect(()=>{

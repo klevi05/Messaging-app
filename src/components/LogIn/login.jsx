@@ -10,6 +10,7 @@ import findIp from '../findIp/findIp'
 import './login.css'
 //login function
 function Login(){
+    //setting up all the states for the page
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const [error, setError] = useState('')

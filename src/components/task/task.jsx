@@ -7,11 +7,13 @@ import './task.css';
 import { useEffect, useState } from "react";
 import TaskBox from "./items/taskBox";
 
-function Task(){
+function Task(){//the route to create tasks
+    //setting up the states for the page
     const [data, setData] = useState()
     const [render, setRender] = useState(false)
     const [tasks, setTasks] = useState("")
     const [alert, setAlert] = useState()
+    //useEffect to store the cookie data
     useEffect(()=>{
         if(Cookies.get('user',{path:'/'}) === undefined){
             navigate('/login', { replace: true })
@@ -19,6 +21,7 @@ function Task(){
             setData(JSON.parse(decrypt(Cookies.get('user',{path:'/'}))))
         }
     },[])
+    //useEffect to get all the tasks form the database
     useEffect(()=>{
         fetch('http://localhost:5000/retriveTask',{mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
             "company": JSON.parse(decrypt(Cookies.get('user',{path:'/'})))['company'],

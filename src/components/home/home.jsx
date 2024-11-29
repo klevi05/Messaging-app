@@ -35,11 +35,11 @@ function Home() {
             })}).then((res)=>{
                 return res.json()
             }).then((res)=>{
-                console.log(res)
                 setChatList(res)
             })
         }
     },[chatList])
+    //useEffect to get all the images from the database and store it in a state
     useEffect(()=>{
         fetch('http://localhost:5000/get-images',{mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
             "company": JSON.parse(decrypt(Cookies.get('user',{path:'/'})))['company']

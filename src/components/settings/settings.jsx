@@ -19,7 +19,7 @@ function Settings(){
         //validate if there is a cookie to enter this page
         if(Cookies.get('user',{path:'/'}) == undefined){
             navigate('/login', { replace: true })
-        }else{
+        }else{//get the profile picture of the user
             setData(JSON.parse(decrypt(Cookies.get('user',{path:'/'}))))
             fetch('http://localhost:5000/get-image',{mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
                 "id": JSON.parse(decrypt(Cookies.get('user',{path:'/'})))['image']

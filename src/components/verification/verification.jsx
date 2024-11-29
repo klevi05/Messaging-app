@@ -43,7 +43,6 @@ function Verification(){
                             //set the response to the data state
                             setData(res)
                         })
-                    console.log('succes')
                 }
             }catch(error){
                 console.log(error)

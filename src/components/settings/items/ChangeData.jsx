@@ -4,7 +4,8 @@ import Alert from '@mui/material/Alert';
 import validator from 'validator'
 import hashing from '../../hashing/hashing'
 import Button from '@mui/material/Button';
-function ChangeData({data}){
+function ChangeData({data}){// function to show the change the user data view
+    //setting up all the states for the page
     const [email, setEmail] = useState('')
     const [alert, setAlert] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
@@ -13,7 +14,7 @@ function ChangeData({data}){
     const [ newPassword, setNewPassword] = useState('')
     const [visiblePassword, setVisiblePassword] = useState(false)
     const [visibleEmail, setVisibleEmail] = useState(false)
-    function changeEmail(){
+    function changeEmail(){//call in the api to change the email
         if(email!=''){
             if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)){
                 setEmailAlert("")
@@ -37,7 +38,7 @@ function ChangeData({data}){
             }
         }
     }
-    function changePassword(){
+    function changePassword(){//call in the api to change the password
         if(newPassword!='' && oldPassword!=""){
             if(validator.isStrongPassword(newPassword, { 
                 minLength: 8, minLowercase: 1, 

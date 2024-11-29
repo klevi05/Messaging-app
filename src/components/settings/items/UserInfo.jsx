@@ -1,4 +1,4 @@
-function UserInfo({data}){
+function UserInfo({data}){//function to show just the user data
     return(
         <div className='profileData'>
             <h1 className='title'>User Info</h1>

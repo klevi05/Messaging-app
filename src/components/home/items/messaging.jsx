@@ -152,8 +152,6 @@ function Messaging({data, openConversation, image}){
                                     <input onChange={(e)=>{setDocument(e.target.files[0]),handleClose()}} type="file" className="form-control" id="inputGroupFile01"/>
                                     </DialogContent>
                                     <DialogActions>
-                                    <Button onClick={handleClose}>Cancel</Button>
-                                    <Button type="submit">Subscribe</Button>
                                     </DialogActions>
                                     </Dialog>
                                 </div>

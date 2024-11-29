@@ -5,7 +5,7 @@ function ProfilePicture({data, image, setImage}){
     function converteToBase64(e){
         var reader = new FileReader();
         reader.readAsDataURL(e.target.files[0]);
-        reader.onload =()=>{
+        reader.onload =()=>{//get the image inputed render it and send it to the backed alo set it as a state
             fetch('http://localhost:5000/updateProfilePicture',{mode: 'cors', method:"POST", headers: {'Content-Type':'application/json'}, body:JSON.stringify({
                 "id": data['image'],
                 'image': reader.result
