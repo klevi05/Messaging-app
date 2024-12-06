@@ -12,33 +12,39 @@ function Names({chatList,image, setOpenConversation}){
     }
     return(
         <>
+        {chatList===undefined?"":
+        <>
         {chatList.map(list => (
             <>
-            {list['lastMessage']!=""?
-            <>
-            <div onClick={()=>{setOpenConversation(list['chatData'])}} className='friendsBox'>
-                <div className='picture'>
-                    <img src={getImages(list, image)}/>
-                </div>
-                <div className='text'>
-                    <p className='username'>{list['name']}</p>
-                    
-                    {list['lastMessage']['type']==='text'?
-                        <p className='lastMessage'>{decrypt(list['lastMessage']['text'])}</p>:
-                        <>
-                        {list['lastMessage']['type']==='image'?
-                            <>
-                            <p className="lastMessage">{<CameraAltIcon/>} Image</p>
-                            </>:
-                            <p className="lastMessage">{<DescriptionIcon/>} Document</p>
+                {list['lastMessage']!=""?
+                <>
+                <div onClick={()=>{setOpenConversation(list['chatData'])}} className='friendsBox'>
+                    <div className='picture'>
+                        <img src={getImages(list, image)}/>
+                    </div>
+                    <div className='text'>
+                        <p className='username'>{list['name']}</p>
+                        
+                        {list['lastMessage']['type']!='text'?
+                                <>
+                                {list['lastMessage']['type']==='image'?
+                                    <>
+                                    <p className="lastMessage">{<CameraAltIcon/>} Image</p>
+                                    </>:
+                                    <p className="lastMessage">{<DescriptionIcon/>} Document</p>
+                                }
+                                </>:
+                            <p className='lastMessage'>{decrypt(list['lastMessage']['text'])}</p>
+                            
                         }
-                        </>
-                    }
+                    </div>
                 </div>
-            </div>
-            </>:""}
-            </>
+                </>:""}
+                </>
         ))}
+        </>
+        }
+        
         </>
     )
 }
